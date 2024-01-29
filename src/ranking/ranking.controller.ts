@@ -13,6 +13,13 @@ export class RankingController {
       let {name,score} = query;
       //Cambiamos la coma por un punto para que sea un número
       score=score.replace(',','.');
+      
+      if(score === undefined){
+        throw {
+          status:400,
+          error:'Score is required'
+        }
+      }
       if(Number.isNaN(Number(score))){
         return {
           ok:false,
@@ -42,9 +49,17 @@ export class RankingController {
   @Post('/reciclaje')
   async createReciclaje(@Request() {query}) {
     try{
+      
       let {name,score} = query;
       //Cambiamos la coma por un punto para que sea un número
       score=score.replace(',','.');
+      
+      if(score === undefined){
+        throw {
+          status:400,
+          error:'Score is required'
+        }
+      }
       if(Number.isNaN(Number(score))){
         return {
           ok:false,
@@ -53,7 +68,11 @@ export class RankingController {
       }
       const newUser =await this.rankingService.createReciclaje(name,Number(score));
       console.log(newUser);
-      
+
+      if(newUser.status === 400){
+        return newUser;
+      }
+
       return {
         ok:true,
         status:200,

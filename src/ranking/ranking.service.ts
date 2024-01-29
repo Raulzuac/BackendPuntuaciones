@@ -23,6 +23,7 @@ export class RankingService {
     try {
       return await this.postScores(this.usersRepositoryReciclaje,name,score);
     } catch (err) {
+      
       console.log(err);
       return err;
     }
@@ -36,7 +37,21 @@ export class RankingService {
     }
   }
   async postScores(repositorio:Repository<usuarios_reciclaje|usuarios_fruta>,name: string, score: number){
+  
     try {
+      
+      if(name === undefined){
+        throw {
+          status:400,
+          error:'Name is required'
+        }
+      }
+      if(name.length < 3){
+        throw {
+          status:400,
+          error:'Name is too short (at least 3 characters)'
+        }
+      }
 
       const id = uuid();
       console.log(id);
