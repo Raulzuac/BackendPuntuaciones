@@ -18,7 +18,7 @@ export class RankingController {
    * @param {Request} request - The request object containing name and score.
    * @returns {Promise<Object>} - A promise that resolves to an object with the status and the new user.
    */
-  @Get('/fruta')
+  @Get('/masfruta')
   async createFruta(@Request() { query }) {
     try {
       let { name, score } = query;
@@ -65,7 +65,7 @@ export class RankingController {
    * @param {Request} request - The request object containing  name and score.
    * @returns {Promise<Object>} - A promise that resolves to an object with the status and the new user.
    */
-  @Get('/reciclaje')
+  @Get('/masreciclaje')
   async createReciclaje(@Request() { query }) {
     try {
       let { name, score } = query;
