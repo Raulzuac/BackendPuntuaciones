@@ -46,7 +46,7 @@ export class RankingService {
           error:'Name is required'
         }
       }
-      if(name.length < 3){
+      if(name.trim().length < 3){
         throw {
           status:400,
           error:'Name is too short (at least 3 characters)'
