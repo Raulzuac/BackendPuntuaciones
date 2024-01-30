@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  db:
+    image: sqlite
+    volumes:
+      - ./data:/data
+    environment:
+      - SQLITE_DATABASE=/data/mydatabase.db

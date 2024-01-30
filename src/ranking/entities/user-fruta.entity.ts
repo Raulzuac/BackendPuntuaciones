@@ -4,7 +4,7 @@ import { Entity, Column, BaseEntity, PrimaryColumn } from 'typeorm';
  * Represents a user in the fruta ranking.
  * this is a table in the database
  */
-@Entity()
+@Entity('usuarios_fruta')
 export class usuarios_fruta extends BaseEntity {
   @PrimaryColumn()
   id: string;
