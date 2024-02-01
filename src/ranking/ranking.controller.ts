@@ -1,20 +1,14 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Request,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Request } from '@nestjs/common';
 import { RankingService } from './ranking.service';
-
+import { get } from 'http';
 
 @Controller('ranking')
 export class RankingController {
   constructor(private readonly rankingService: RankingService) {}
 
-
   /**
    * Creates a new fruta ranking entry.
-   * 
+   *
    * @param {Request} request - The request object containing name and score.
    * @returns {Promise<Object>} - A promise that resolves to an object with the status and the new user.
    */
@@ -61,7 +55,7 @@ export class RankingController {
 
   /**
    * Creates a new reciclaje ranking entry.
-   * 
+   *
    * @param {Request} request - The request object containing  name and score.
    * @returns {Promise<Object>} - A promise that resolves to an object with the status and the new user.
    */
@@ -109,13 +103,62 @@ export class RankingController {
     }
   }
 
+  /**
+   * Get users from the fruta ranking.
+   * @param {Request} request - The request object containing the id of the user to delete.
+   * @returns {Promise<Object>} - A promise that resolves to an object with the status of the operation.
+   **/
+
   @Get('/fruta')
   findAll() {
     return this.rankingService.findAllFrutica();
   }
 
+  /**
+   * Get users from the fruta ranking.
+   * @param {Request} request - The request object containing the id of the user to delete.
+   * @returns {Promise<Object>} - A promise that resolves to an object with the status of the operation.
+   **/
   @Get('/reciclaje')
   findAllReciclaje() {
     return this.rankingService.findAllReciclaje();
   }
+
+  /**
+   * Deletes a user from the reciclaje ranking.
+   * @param {Request} request - The request object containing the id of the user to delete.
+   * @returns {Promise<Object>} - A promise that resolves to an object with the status of the operation.
+   */
+
+  @Delete('/fruta/:id')
+  deleteUserFruta(@Request() { params }) {
+    const user = this.rankingService.findOneUserFruta(params.id);
+    if (user.status !== 200) {
+      return user;
+    } else {
+      return this.rankingService.deleteUserFruta(params.id);
+    }
+  }
+
+  /**
+   * Deletes a user from the fruta ranking.
+   * @param {Request} request - The request object containing the id of the user to delete.
+   * @returns {Promise<Object>} - A promise that resolves to an object with the status of the operation.
+   */
+  @Delete('/fruta')
+  deleteAllFrutica() {
+    return this.rankingService.deleteAllFrutica();
+  }
+
+  /**
+   * Deletes a user from the reciclaje ranking.
+   * @param {Request} request - The request object containing the id of the user to delete.
+   * @returns {Promise<Object>} - A promise that resolves to an object with the status of the operation.
+   */
+  @Delete('/reciclaje')
+  deleteAllReciclaje() {
+    return this.rankingService.deleteAllReciclaje();
+  }
+
+
 }

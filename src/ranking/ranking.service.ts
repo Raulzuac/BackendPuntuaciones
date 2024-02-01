@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateRankingDto } from './dto/update-ranking.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { usuarios_reciclaje } from './entities/user-reciclaje.entity';
@@ -126,36 +125,113 @@ export class RankingService {
       return err;
     }
   }
-
-  findAll() {
-    return {
-      status: 501,
-      message:
-        'Not implemented. Contact with admin (wish you luck) <<SALCHICHON>>',
-    };
+  /**
+   * Deletes a user from the "usuarios_reciclaje" table.
+   *
+   * @param {string} id - The id of the user to delete.
+   * @returns {Promise<Object>} The status of the operation.
+   */
+  deleteUserFruta(id: string) {
+    try {
+      return this.usersRepositoryFruta.delete({ id });
+    } catch (err) {
+      return {
+        status: err.status,
+        error: err.message,
+      };
+    }
   }
 
-  findOne(id: number) {
-    return {
-      status: 501,
-      message:
-        'Not implemented. Contact with admin (wish you luck) <<SALCHICHON>>',
-    };
+  /**
+   * Deletes a user from the "usuarios_fruta" table.
+   *
+   * @param {string} id - The id of the user to delete.
+   * @returns {Promise<Object>} The status of the operation (200 if ok)
+   */
+  findOneUserFruta(id: string) {
+    try {
+      const user = this.usersRepositoryFruta.findOne({ where: { id } });
+      return {
+        status: 200,
+        user: user,
+      };
+    } catch (err) {
+      return {
+        status: err.status,
+        error: err.message,
+      };
+    }
   }
 
-  update(id: number, updateRankingDto: UpdateRankingDto) {
-    return {
-      status: 501,
-      message:
-        'Not implemented. Contact with admin (wish you luck) <<SALCHICHON>>',
-    };
+  /**
+   * Deletes a user from the "usuarios_reciclaje" table.
+   *
+   * @param {string} id - The id of the user to delete.
+   * @returns {Promise<Object>} The status of the operation.
+   */
+  findOneUserReciclaje(id: string) {
+    try {
+      return this.usersRepositoryReciclaje.findOne({ where: { id } });
+    } catch (err) {
+      return {
+        status: err.status,
+        error: err.message,
+      };
+    }
   }
 
-  remove(id: number) {
-    return {
-      status: 501,
-      message:
-        'Not implemented. Contact with admin (wish you luck) <<SALCHICHON>>',
-    };
+  /**
+   * Deletes a user from the "usuarios_reciclaje" table.
+   *
+   * @param {string} id - The id of the user to delete.
+   * @returns {Promise<Object>} The status of the operation.
+   */
+  deleteUserReciclaje(id: string) {
+    try {
+      return this.usersRepositoryReciclaje.delete({ id });
+    } catch (err) {
+      return {
+        status: err.status,
+        error: err.message,
+      };
+    }
+  }
+
+  /**
+   * Deletes all users from the "usuarios_reciclaje" table.
+   * @returns {Promise<Object>} The status of the operation.
+   */
+  deleteAllFrutica() {
+    try {
+      this.usersRepositoryFruta.clear();
+      return {
+        status: 200,
+        message: 'All users deleted from the fruta ranking',
+      };
+    } catch (err) {
+      return {
+        status: err.status,
+        error: err.message,
+      };
+    }
+  }
+
+  /**
+   * Deletes all users from the "usuarios_reciclaje" table.
+   * @returns {Promise<Object>} The status of the operation.
+   */
+  deleteAllReciclaje() {
+    try {
+      this.usersRepositoryReciclaje.clear();
+      return {
+        status: 200,
+        message: 'All users deleted from the reciclaje ranking',
+      };
+    } catch (err) {
+      return {
+        status: err.status,
+        error: err.message,
+      };
+    }
   }
 }

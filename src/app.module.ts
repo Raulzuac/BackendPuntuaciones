@@ -16,7 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.USER,
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
-      entities: [usuarios_fruta,usuarios_reciclaje]
+      entities: [usuarios_fruta, usuarios_reciclaje],
     }),
   ],
   controllers: [],
